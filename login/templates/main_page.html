@@ -1,0 +1,200 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .sort-buttons {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        .sort-buttons a {
+            text-decoration: none;
+            color: black;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hello, {{ username }}</h2>
+    <a href="{% url 'add_product' %}">Add Product</a>
+    <a href="{% url 'upload_file' %}">Upload File</a>
+    <a href="{% url 'export_products' %}">Export Products to Excel</a>
+    <a href="{% url 'restore_products' %}">Restore Products from Excel</a>
+    
+    <h3>Products:</h3>
+    
+    <form method="get" action="{% url 'main_page' %}">
+        <input type="text" name="query" placeholder="Search..." value="{{ query }}">
+        <button type="submit">Search</button>
+        <input type="hidden" name="sort_by" value="{{ sort_by }}">
+        <input type="hidden" name="order" value="{{ order }}">
+    </form>
+    
+    <table>
+        <tr>
+            <th>
+                کد اموال
+                <span class="sort-buttons">
+                    <a href="?sort_by=code&order=asc&query={{ query }}">&#9650;</a>
+                    <a href="?sort_by=code&order=desc&query={{ query }}">&#9660;</a>
+                </span>
+            </th>
+            <th>
+                گروه
+                <span class="sort-buttons">
+                    <a href="?sort_by=group&order=asc&query={{ query }}">&#9650;</a>
+                    <a href="?sort_by=group&order=desc&query={{ query }}">&#9660;</a>
+                </span>
+            </th>
+            <th>شرح</th>
+            <th>
+                محل
+                <span class="sort-buttons">
+                    <a href="?sort_by=location&order=asc&query={{ query }}">&#9650;</a>
+                    <a href="?sort_by=location&order=desc&query={{ query }}">&#9660;</a>
+                </span>
+            </th>
+            <th>
+                طبقه
+                <span class="sort-buttons">
+                    <a href="?sort_by=floor&order=asc&query={{ query }}">&#9650;</a>
+                    <a href="?sort_by=floor&order=desc&query={{ query }}">&#9660;</a>
+                </span>
+            </th>
+            <th>وضعیت</th>
+            <th>سرشماری 1403</th>
+            <th>
+                اتاق
+                <span class="sort-buttons">
+                    <a href="?sort_by=room&order=asc&query={{ query }}">&#9650;</a>
+                    <a href="?sort_by=room&order=desc&query={{ query }}">&#9660;</a>
+                </span>
+            </th>
+            <th>استفاده کننده</th>
+            <th>فروشنده</th>
+            <th>توضیحات</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.group }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.location }}</td>
+            <td>{{ product.floor }}</td>
+            <td>{{ product.status }}</td>
+            <td>{{ product.census_1403 }}</td>
+            <td>{{ product.room }}</td>
+            <td>{{ product.user }}</td>
+            <td>{{ product.vendor }}</td>
+            <td>{{ product.notes }}</td>
+            <td>
+                <a href="{% url 'edit_product' product.pk %}">Edit</a>
+                <a href="{% url 'delete_product' product.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html> {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/main-style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Hello, {{ username }}</h2>
+        <div class="actions">
+            <a href="{% url 'add_product' %}" class="button">Add Product</a>
+            <a href="{% url 'upload_file' %}" class="button">Upload File</a>
+            <a href="{% url 'export_products' %}" class="button">Export Products to Excel</a>
+            <a href="{% url 'restore_products' %}" class="button">Restore Products from Excel</a>
+        </div>
+        <form method="get" action="{% url 'main_page' %}" class="search-form">
+            <input type="text" name="query" placeholder="Search..." value="{{ query }}">
+            <button type="submit">Search</button>
+            <input type="hidden" name="sort_by" value="{{ sort_by }}">
+            <input type="hidden" name="order" value="{{ order }}">
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>کد اموال
+                        <span class="sort-buttons">
+                            <a href="?sort_by=code&order=asc&query={{ query }}">&#9650;</a>
+                            <a href="?sort_by=code&order=desc&query={{ query }}">&#9660;</a>
+                        </span>
+                    </th>
+                    <th>گروه
+                        <span class="sort-buttons">
+                            <a href="?sort_by=group&order=asc&query={{ query }}">&#9650;</a>
+                            <a href="?sort_by=group&order=desc&query={{ query }}">&#9660;</a>
+                        </span>
+                    </th>
+                    <th>شرح</th>
+                    <th>محل
+                        <span class="sort-buttons">
+                            <a href="?sort_by=location&order=asc&query={{ query }}">&#9650;</a>
+                            <a href="?sort_by=location&order=desc&query={{ query }}">&#9660;</a>
+                        </span>
+                    </th>
+                    <th>طبقه
+                        <span class="sort-buttons">
+                            <a href="?sort_by=floor&order=asc&query={{ query }}">&#9650;</a>
+                            <a href="?sort_by=floor&order=desc&query={{ query }}">&#9660;</a>
+                        </span>
+                    </th>
+                    <th>وضعیت</th>
+                    <th>سرشماری 1403</th>
+                    <th>اتاق
+                        <span class="sort-buttons">
+                            <a href="?sort_by=room&order=asc&query={{ query }}">&#9650;</a>
+                            <a href="?sort_by=room&order=desc&query={{ query }}">&#9660;</a>
+                        </span>
+                    </th>
+                    <th>استفاده کننده</th>
+                    <th>فروشنده</th>
+                    <th>توضیحات</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.group }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.location }}</td>
+                    <td>{{ product.floor }}</td>
+                    <td>{{ product.status }}</td>
+                    <td>{{ product.census_1403 }}</td>
+                    <td>{{ product.room }}</td>
+                    <td>{{ product.user }}</td>
+                    <td>{{ product.vendor }}</td>
+                    <td>{{ product.notes }}</td>
+                    <td>
+                        <a href="{% url 'edit_product' product.pk %}" class="edit-button">Edit</a>
+                        <a href="{% url 'delete_product' product.pk %}" class="delete-button">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
