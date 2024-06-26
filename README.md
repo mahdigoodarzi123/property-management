@@ -23,15 +23,16 @@
 
 1. مخزن را کلون کنید:
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/mahdigoodarzi123/property-management.git
    cd your-repository
    pip install -r requirements.txt
-   python manage.py migrate
    python manage.py createsuperuser
+   python manage.py migrate
+   python manage.py makemigrations
    python manage.py runserver
 
 استفاده
-مرورگر وب خود را باز کرده و به http://127.0.0.1:8000 بروید.
-با مشخصات ابرکاربر که قبلاً ایجاد کرده‌اید، وارد شوید.
+مرورگر وب خود را باز کرده و به http://127.0.0.1:8000/login بروید.
+با مشخصات سوپریوزری که قبلاً ایجاد کرده‌اید، وارد شوید.
 از لینک‌های ناوبری برای اضافه کردن محصولات، آپلود فایل‌ها، صادرات به اکسل و بازیابی از اکسل استفاده کنید.
 از فرم جستجو برای جستجوی محصولات و مرتب‌سازی آن‌ها با استفاده از دکمه‌های مرتب‌سازی موجود استفاده کنید.
